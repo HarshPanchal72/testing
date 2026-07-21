@@ -8,12 +8,12 @@ pipeline {
             }
         }
 
-        stage('Pylint Code Check') {
+	stage('Pylint Code Check') {
             steps {
                 echo 'Running Pylint code check...'
                 sh '''
-                    python3 -m pip install pylint --quiet
-                    python3 -m pylint --errors-only project1/ || exit 1
+                    # Directly run pylint installed via apt
+                    pylint --errors-only project1/ || exit 1
                 '''
             }
         }
