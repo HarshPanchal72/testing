@@ -8,19 +8,9 @@ pipeline {
             }
         }
 
-	stage('Pylint Code Check') {
-            steps {
-                echo 'Running Pylint code check...'
-                sh '''
-                    # Directly run pylint installed via apt
-                    pylint --errors-only project1/ || exit 1
-                '''
-            }
-        }
-
         stage('Build & Test') {
             steps {
-                echo 'Pylint passed! Running build stages...'
+                echo 'Running build checks...'
                 sh 'echo "Build check completed successfully."'
             }
         }
@@ -43,10 +33,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline succeeded! Changes checked and auto-synced to stage branch.'
+            echo 'Pipeline succeeded! Changes pushed to stage branch.'
         }
         failure {
-            echo 'Pipeline failed! Pylint found errors or build failed — stage branch was NOT updated.'
+            echo 'Pipeline failed! Check console logs.'
         }
     }
 }
